@@ -24,7 +24,7 @@ export class BitGetter {
 
   get(elId: number, bitId: number) {
     this.validateData(elId, bitId);
-    return Number((this.arr[elId] & (1 << bitId)) !== 0);
+    return (this.arr[elId] & (1 << bitId)) >> bitId;
   }
 
   set(elId: number, bitId: number, value: 0 | 1) {
