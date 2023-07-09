@@ -32,6 +32,47 @@ export class LinkedList<T> {
     this.last = newEl;
   }
 
+  addFirst(value: T) {
+    const newEl: LinkedListItem = {
+      value,
+      next: null,
+      previous: null,
+    };
+
+    if (this.isEmpty) {
+      this.last = newEl;
+    } else {
+      this.first!.previous = newEl;
+    }
+
+    newEl.next = this.first;
+    this.first = newEl;
+  }
+
+  deleteFirst() {
+    if (this.isEmpty) throw new Error("List is empty");
+    const temp = this.first;
+    if (this.first?.next === null) {
+      this.last = null;
+    } else {
+      this.first!.next!.previous = null;
+    }
+    this.first = this.first?.next ?? null;
+    return temp;
+  }
+
+  deleteLast() {
+    if (this.isEmpty) throw new Error("List is empty");
+    const temp = this.last;
+    if (this.last?.previous === null) {
+      this.first = null;
+    } else {
+      this.last!.previous!.next = null;
+    }
+    this.last = this.last?.previous ?? null;
+    return temp;
+  }
+
   *[Symbol.iterator]() {
     if (!this.isEmpty) {
       yield this.first?.value;
@@ -44,15 +85,15 @@ export class LinkedList<T> {
   }
 }
 
-const list = new LinkedList<number>();
+// const list = new LinkedList<number>();
 
-list.add(1);
-list.add(2);
-list.add(3);
-list.add(4);
-list.add(5);
-list.add(6);
+// list.add(1);
+// list.add(2);
+// list.add(3);
+// list.add(4);
+// list.add(5);
+// list.add(6);
 
-for (const value of list) {
-  console.log(value);
-}
+// for (const value of list) {
+//   console.log(value);
+// }
